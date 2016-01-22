@@ -7,8 +7,6 @@ using MetroFramework.Forms;
 using CG.Web.MegaApiClient;
 using System.Threading;
 using System.Threading.Tasks;
-using MegaApi;
-using MegaApi.Utility;
 
 namespace mCloudStorage
 {
@@ -59,6 +57,7 @@ namespace mCloudStorage
             if (runCDrive)
             {
                 new CloudDrive().ShowDialog();
+
             }
 			if (canExit)
 			{
@@ -110,10 +109,22 @@ namespace mCloudStorage
 			bool emptyUn = string.IsNullOrWhiteSpace(Properties.Settings.Default.email);
 			if (!emptyPass&&!emptyUn)
 			{
-				textBox1.Text = Properties.Settings.Default.email;
+                this.Opacity = 0;
+                textBox1.Text = Properties.Settings.Default.email;
 				textBox2.Text = Properties.Settings.Default.password;
 				AttemptLogin(null,null);
 			}
 		}
-	}
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://mega.nz/#register");
+        }
+
+        private void LoginForm_Shown(object sender, EventArgs e)
+        {
+            if (this.Opacity == 0)
+                this.Hide();
+        }
+    }
 }

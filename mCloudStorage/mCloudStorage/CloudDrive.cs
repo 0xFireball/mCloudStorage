@@ -2,20 +2,18 @@
  */
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
 using MetroFramework.Forms;
 using CG.Web.MegaApiClient;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace mCloudStorage
 {
-	/// <summary>
-	/// Description of MainForm.
-	/// </summary>
-	public partial class CloudDrive : MetroForm
+    /// <summary>
+    /// Description of MainForm.
+    /// </summary>
+    public partial class CloudDrive : MetroForm
 	{
 		public static MegaApiClient mclient = new MegaApiClient();
 		INode mcNode;
@@ -72,11 +70,12 @@ namespace mCloudStorage
 				foreach (var node in fileNodes)
 				{
 					string fileName = node.Name;
-					nodeDict.Add(fileName,node);
+                    if (!nodeDict.ContainsKey(fileName))
+					    nodeDict.Add(fileName,node);
 				}
 				RefreshView();
 			}
-			catch (Exception e)
+			catch (Exception ex)
 			{
 				MessageBox.Show("A fatal error occurred loading the Cloud Drive. mCloudStorage will now exit.");
 				this.Close();
@@ -103,7 +102,8 @@ namespace mCloudStorage
 				{
 					if (node.ParentId==mcNode.Id)
 					{
-                        nodeDict.Add(node.Name,node);
+                        if (!nodeDict.ContainsKey(node.Name))
+                            nodeDict.Add(node.Name,node);
 					}
 				}
 				RefreshView();
@@ -112,7 +112,8 @@ namespace mCloudStorage
 			catch (Exception ex)
 			{
 				MessageBox.Show("An error occurred refreshing nodes.");
-			}
+                label1.Text = "Node Refresh Error.";
+            }
 		}
 		void Button1Click(object sender, EventArgs e)
 		{
@@ -184,5 +185,54 @@ namespace mCloudStorage
 				MessageBox.Show("An error occurred downloading the file.");
 			}
 		}
-	}
+
+        private async void button4_Click(object sender, EventArgs e)
+        {
+            await Task.Run(()=> RefreshNodes());
+        }
+
+        private async void button5_Click(object sender, EventArgs e)
+        {
+            ListViewItem lvitem = null;
+            try
+            {
+                lvitem = listView1.Items[listView1.SelectedIndices[0]];
+            }
+            catch
+            {
+                return;
+            }
+            if (lvitem == null)
+                return;
+            try
+            {
+                label1.Text = "Deleting...";
+                DialogResult dr = MessageBox.Show("Are you sure you want to delete this item?","Warning",MessageBoxButtons.OKCancel);
+                DialogResult tr = MessageBox.Show("Do you want to move this item to the trash?","Alert",MessageBoxButtons.YesNoCancel);
+                if (dr == DialogResult.OK && tr != DialogResult.Cancel)
+                {
+                    await Task.Run(() => { mclient.Delete(nodeDict[lvitem.Text], tr == DialogResult.Yes); RefreshNodes(); });
+                }
+                label1.Text = "Deleted Successfully.";
+            }
+            catch
+            {
+                label1.Text = "Delete Error.";
+                MessageBox.Show("An error occurred deleting the file.");
+            }
+        }
+
+        private void CloudDrive_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
+        }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.Show();
+            this.WindowState = FormWindowState.Minimized;
+            this.WindowState = FormWindowState.Normal;
+        }
+    }
 }
