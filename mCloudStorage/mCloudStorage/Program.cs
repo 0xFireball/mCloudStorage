@@ -23,7 +23,8 @@ namespace mCloudStorage
 			}
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new LoginForm());
+			new LoginForm().ShowDialog();
+			Application.Run(new CloudDrive());
 		}
 		
 	}

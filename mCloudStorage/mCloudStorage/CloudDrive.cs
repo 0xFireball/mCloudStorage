@@ -18,6 +18,7 @@ namespace mCloudStorage
 		public static MegaApiClient mclient = new MegaApiClient();
 		INode mcNode;
 		Dictionary<string,INode> nodeDict = new Dictionary<string, INode>();
+		public static bool loggedIn = false;
 		
 		public CloudDrive()
 		{
@@ -26,17 +27,30 @@ namespace mCloudStorage
 			// The InitializeComponent() call is required for Windows Forms designer support.
 			//
 			InitializeComponent();
-			
+			//this.Opacity = 0;
+			WaitForLogin();
 			//
 			// TODO: Add constructor code after the InitializeComponent() call.
 			//
 		}
-		async void CloudDriveLoad(object sender, EventArgs e)
+		async void WaitForLogin()
 		{
+			while (!loggedIn)
+			{
+				System.Threading.Thread.Sleep(100);
+			}
+			//await Task.Run(()=>new LoginForm().ShowDialog());
+		}
+		async void CloudDriveLoad(object sender, EventArgs e)
+		{						
+			//this.Opacity = 1.0;
+			this.Show();
+			this.WindowState = FormWindowState.Minimized;
+			this.WindowState = FormWindowState.Normal;
 			label1.Text = "Loading Nodes...";
 			await Task.Run(()=>LoadData());
 			label1.Text = "Ready.";
-		}	
+		}
 		void LoadData()
 		{
 			try
@@ -115,6 +129,7 @@ namespace mCloudStorage
                 label1.Text = "Node Refresh Error.";
             }
 		}
+        bool forceClose = false;
 		void Button1Click(object sender, EventArgs e)
 		{
 			try
@@ -124,6 +139,7 @@ namespace mCloudStorage
 				Properties.Settings.Default.password="";
 				Properties.Settings.Default.Save();
 				this.Close();
+                forceClose = true;
 			}
 			catch (Exception ex)
 			{
@@ -224,7 +240,7 @@ namespace mCloudStorage
 
         private void CloudDrive_FormClosing(object sender, FormClosingEventArgs e)
         {
-            e.Cancel = true;
+            e.Cancel = !forceClose;
             this.Hide();
         }
 
@@ -234,5 +250,9 @@ namespace mCloudStorage
             this.WindowState = FormWindowState.Minimized;
             this.WindowState = FormWindowState.Normal;
         }
+		void CloudDriveShown(object sender, EventArgs e)
+		{
+			//this.Hide();
+		}
     }
 }

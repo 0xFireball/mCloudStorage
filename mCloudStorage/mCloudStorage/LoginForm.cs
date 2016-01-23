@@ -43,9 +43,8 @@ namespace mCloudStorage
 					Properties.Settings.Default.password = pw;
 					Properties.Settings.Default.Save();
 					label3.Text = "Login success.";
-					this.Hide();
-                    runCDrive = true;
-					canExit = true;
+					CloudDrive.loggedIn = true;
+					this.Close();
 				}
 				catch (ApiException apie)
 				{
@@ -54,15 +53,6 @@ namespace mCloudStorage
 				}
 				button1.Enabled = true;
 			});
-            if (runCDrive)
-            {
-                new CloudDrive().ShowDialog();
-
-            }
-			if (canExit)
-			{
-				this.Close();
-			}
 		}
 		async void AttemptRegister(object sender, EventArgs e)
 		{
@@ -126,5 +116,12 @@ namespace mCloudStorage
             if (this.Opacity == 0)
                 this.Hide();
         }
+		void LoginFormFormClosing(object sender, FormClosingEventArgs e)
+		{
+            /*
+            if (!CloudDrive.loggedIn)
+			    Application.Exit();
+            */
+		}
     }
 }
