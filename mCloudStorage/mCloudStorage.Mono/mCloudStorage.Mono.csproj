@@ -11,6 +11,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <ApplicationIcon>icons\Database-Cloud-256.ico</ApplicationIcon>
     <NoWin32Manifest>False</NoWin32Manifest>
+    <Description>mCloudStorage - for Mono</Description>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -42,23 +43,15 @@
     <Reference Include="EPFramework">
       <HintPath>..\packages\EPFramework.1.0.1\lib\EPFramework.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.CSharp">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
+    <Reference Include="System.Core" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="MegaApiClient, Version=1.1.3.98, Culture=neutral, PublicKeyToken=0480d311efbeb4e2">
       <HintPath>..\packages\MegaApiClient.1.1.3\lib\net40\MegaApiClient.dll</HintPath>
     </Reference>

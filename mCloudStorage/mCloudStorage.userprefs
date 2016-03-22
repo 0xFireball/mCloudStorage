@@ -1,8 +1,32 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="mCloudStorage.Mono/Program.cs">
+    <Files>
+      <File FileName="mCloudStorage.Mono/LoginForm.cs" Line="17" Column="17" />
+      <File FileName="mCloudStorage.Mono/CloudDrive.cs" Line="24" Column="24" />
+      <File FileName="mCloudStorage.Mono/Program.cs" Line="14" Column="14" />
+      <File FileName="mCloudStorage.Mono/CloudDrive.Designer.cs" Line="24" Column="24" />
+      <File FileName="mCloudStorage.Mono/LoginForm.Designer.cs" Line="65" Column="65" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="mCloudStorage.Mono" expanded="True">
+            <Node name="CloudDrive.cs" expanded="True" />
+            <Node name="LoginForm.cs" expanded="True" />
+            <Node name="Program.cs" selected="True" />
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/home/nihal/GitHub/mCloudStorage/mCloudStorage/mCloudStorage.Mono/LoginForm.cs" line="42" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
